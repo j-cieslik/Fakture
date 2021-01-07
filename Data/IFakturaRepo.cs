@@ -7,14 +7,12 @@ namespace Data
 {
     public interface IFakturaRepo
     {
-        Fakture GetFactureById(int id);
-        IEnumerable<FactureToReturnDto> GetFactures();
-        IEnumerable<FaktureProducts> GetFactureProducts();
-        IEnumerable<FaktureStatus> GetFactureStatus();
+        Task<Fakture> GetFactureByIdAsync(int id);
+        Task<List<FactureToReturnDto>> GetFacturesAsync();
+        Task<List<FaktureProducts>> GetFactureProductsAsync();
+        Task<List<FaktureStatus>> GetFactureStatusAsync();
         void CreateFacture(Fakture fct);
         void UpdateFacture(Fakture fct); 
-
         void DeleteFactureById(int id);
-        
     }
 }

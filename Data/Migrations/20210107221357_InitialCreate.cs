@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Faktura.Data.Migrations
 {
@@ -8,7 +7,7 @@ namespace Faktura.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "FaktureProducts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -16,15 +15,15 @@ namespace Faktura.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Count = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    Tax = table.Column<float>(nullable: false)
+                    Tax = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_FaktureProducts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Status",
+                name: "FaktureStatus",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -33,59 +32,59 @@ namespace Faktura.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Status", x => x.Id);
+                    table.PrimaryKey("PK_FaktureStatus", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Facture",
+                name: "Fakture",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<int>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
-                    City = table.Column<string>(nullable: true),
+                    Date = table.Column<string>(nullable: false),
+                    City = table.Column<string>(maxLength: 100, nullable: false),
                     FaktureProductsId = table.Column<int>(nullable: false),
                     FaktureStatusId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Facture", x => x.Id);
+                    table.PrimaryKey("PK_Fakture", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Facture_Products_FaktureProductsId",
+                        name: "FK_Fakture_FaktureProducts_FaktureProductsId",
                         column: x => x.FaktureProductsId,
-                        principalTable: "Products",
+                        principalTable: "FaktureProducts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Facture_Status_FaktureStatusId",
+                        name: "FK_Fakture_FaktureStatus_FaktureStatusId",
                         column: x => x.FaktureStatusId,
-                        principalTable: "Status",
+                        principalTable: "FaktureStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Facture_FaktureProductsId",
-                table: "Facture",
+                name: "IX_Fakture_FaktureProductsId",
+                table: "Fakture",
                 column: "FaktureProductsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Facture_FaktureStatusId",
-                table: "Facture",
+                name: "IX_Fakture_FaktureStatusId",
+                table: "Fakture",
                 column: "FaktureStatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Facture");
+                name: "Fakture");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "FaktureProducts");
 
             migrationBuilder.DropTable(
-                name: "Status");
+                name: "FaktureStatus");
         }
     }
 }

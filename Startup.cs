@@ -15,7 +15,6 @@ namespace Faktura
     public Startup(IConfiguration config)
     {
       _config = config;
-
     }
 
 

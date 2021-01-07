@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
@@ -9,9 +10,14 @@ namespace API.Data
     {
     }
 
-    public DbSet<Fakture> Facture { get; set; }
-    public DbSet<FaktureProducts> Products { get; set; }
-    public DbSet<FaktureStatus> Status { get; set; }
+    public DbSet<Fakture> Fakture { get; set; }
+    public DbSet<FaktureProducts> FaktureProducts { get; set; }
+    public DbSet<FaktureStatus> FaktureStatus { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      base.OnModelCreating(modelBuilder);
+      modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    }
   }
 }
