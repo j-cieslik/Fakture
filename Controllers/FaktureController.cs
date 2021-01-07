@@ -29,7 +29,7 @@ namespace Controllers
     }
 
     //GET api/fakture/{id}
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name="GetFactureById")]
     public ActionResult<FactureToReturnDto> GetFactureById(int id)
     {
       var facture = _repository.GetFactureById(id);
@@ -44,6 +44,24 @@ namespace Controllers
         _repository.CreateFacture(facture);
 
         return Ok(facture);
+    }
+
+        
+    [HttpPut]
+    public ActionResult<Fakture> UpdateFacture(Fakture facture)
+    {
+        _repository.UpdateFacture(facture);
+
+        return Ok(facture);
+    }
+
+    //DELETE api/fakture/{id}
+    [HttpDelete("{id}")]
+    public ActionResult<Fakture> DeleteCommand(int id)
+    {
+        _repository.DeleteFactureById(id);
+
+        return NoContent();
     }
   }
 }

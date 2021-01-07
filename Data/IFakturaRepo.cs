@@ -11,7 +11,10 @@ namespace Data
         IEnumerable<FactureToReturnDto> GetFactures();
         IEnumerable<FaktureProducts> GetFactureProducts();
         IEnumerable<FaktureStatus> GetFactureStatus();
-        void CreateFacture (Fakture fct);
+        void CreateFacture(Fakture fct);
+        void UpdateFacture(Fakture fct); 
+
+        void DeleteFactureById(int id);
         
     }
 }

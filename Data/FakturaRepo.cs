@@ -85,5 +85,23 @@ namespace Data
     {
       _factures.Add(fct);
     }
+
+    public void UpdateFacture(Fakture fct)
+    {
+      var index = fct.Id;
+
+      _factures[index].City = fct.City;
+      _factures[index].Code = fct.Code;
+      _factures[index].Date = fct.Date;
+      _factures[index].FaktureProductsId = fct.FaktureProductsId;
+      _factures[index].FaktureStatusId = fct.FaktureStatusId;
+    }
+
+    public void DeleteFactureById(int id)
+    {
+      var itemToRemove = _factures.Find(x => x.Id == id);
+
+      _factures.Remove(itemToRemove);
+    }
   }
 }
