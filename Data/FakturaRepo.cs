@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dtos;
 using Models;
 
 namespace Data
 {
   public class FakturaRepo : IFakturaRepo
   {
-    public Fakture GetFactureById(int id)
+    public FactureToReturnDto GetFactureById(int id)
     {
       var facture = GetFactures().FirstOrDefault(x => x.Id == id);
 
@@ -42,7 +43,7 @@ namespace Data
       return products;
     }
 
-    public IEnumerable<Fakture> GetFactures()
+    public IEnumerable<FactureToReturnDto> GetFactures()
     {
       var factures = new List<Fakture>
       {
@@ -51,31 +52,20 @@ namespace Data
         new Fakture{Id=2, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1}
       };
 
+    
       var status = GetFactureStatus();
       var products = GetFactureProducts();
 
-      var facture = factures.Join(products,
-        x => x.FaktureProductsId,
-        y => y.Id,
-        (factures, products) => new Fakture
-          {
-            Id = factures.Id,
-            Code = factures.Code,
-            Date = factures.Date,
-            City = factures.City,
-            FaktureStatusId = factures.FaktureStatusId,
-            FaktureProductsId = factures.FaktureProductsId
-          }
-      ).Join(status,
+      var facture = factures.Join(status,
         x => x.FaktureStatusId,
         y => y.Id,
-        (factures, status) => new Fakture
+        (factures, status) => new FactureToReturnDto
           {
             Id = factures.Id,
             Code = factures.Code,
             Date = factures.Date,
             City = factures.City,
-            FaktureStatusId = factures.FaktureStatusId,
+            Name = status.Name,
             FaktureProductsId = factures.FaktureProductsId
           }
       ).ToList();
