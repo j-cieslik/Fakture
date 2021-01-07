@@ -11,6 +11,7 @@ namespace Data
         IEnumerable<FactureToReturnDto> GetFactures();
         IEnumerable<FaktureProducts> GetFactureProducts();
         IEnumerable<FaktureStatus> GetFactureStatus();
+        void CreateFacture (Fakture fct);
         
     }
 }

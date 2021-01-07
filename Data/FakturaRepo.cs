@@ -9,6 +9,19 @@ namespace Data
 {
   public class FakturaRepo : IFakturaRepo
   {
+
+    private List<FaktureStatus> _status;
+    private List<FaktureProducts> _products;
+    private List<Fakture> _factures;
+
+    
+    public FakturaRepo()
+    {
+      _status = new List<FaktureStatus>();
+      _products = new List<FaktureProducts>();
+      _factures = new List<Fakture>();
+    }
+
     public FactureToReturnDto GetFactureById(int id)
     {
       var facture = GetFactures().FirstOrDefault(x => x.Id == id);
@@ -18,45 +31,40 @@ namespace Data
 
     public IEnumerable<FaktureStatus> GetFactureStatus()
     {
-      var status = new List<FaktureStatus>
-      {
-          new FaktureStatus{Id=1, Name="DoZatwierdzenia"},
-          new FaktureStatus{Id=2, Name="Zatwierdzona"},
-          new FaktureStatus{Id=3, Name="Anulowana"}
-      };
+      _status.Add(new FaktureStatus{Id=1, Name="DoZatwierdzenia"});
+      _status.Add(new FaktureStatus{Id=2, Name="Zatwierdzona"});
+      _status.Add(new FaktureStatus{Id=3, Name="Anulowana"});
+      _status.Add(new FaktureStatus{Id=4, Name="Nowa"});
 
-      return status;
+      return _status;
     }
 
     public IEnumerable<FaktureProducts> GetFactureProducts()
     {
-      var products = new List<FaktureProducts>
-      {
-        new FaktureProducts{Id=1, Name="Deska", Count=5, Price=200, Tax=0.17f},
-        new FaktureProducts{Id=2, Name="Czapka", Count=7, Price=50, Tax=0.2f},
-        new FaktureProducts{Id=3, Name="Kurtka", Count=1, Price=70, Tax=0.19f},
-        new FaktureProducts{Id=4, Name="Spodnie", Count=2, Price=80, Tax=0.1f}
-      };
 
-      return products;
+      _products.Add(new FaktureProducts{Id=1, Name="Deska", Count=5, Price=200, Tax=0.17f});
+      _products.Add(new FaktureProducts{Id=2, Name="Czapka", Count=7, Price=50, Tax=0.2f});
+      _products.Add(new FaktureProducts{Id=3, Name="Kurtka", Count=1, Price=70, Tax=0.19f});
+      _products.Add(new FaktureProducts{Id=4, Name="Spodnie", Count=2, Price=80, Tax=0.1f});
+
+
+      return _products;
     }
 
     public IEnumerable<FactureToReturnDto> GetFactures()
     {
-      var factures = new List<Fakture>
-      {
-        new Fakture{Id=1, Code=40, Date=new DateTime(2020, 4, 1), City="Warszawa", FaktureProductsId=1, FaktureStatusId=2},
-        new Fakture{Id=2, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1},
-        new Fakture{Id=3, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1},
-        new Fakture{Id=4, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1},
-        new Fakture{Id=5, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1}
-      };
+
+      _factures.Add(new Fakture{Id=1, Code=40, Date=new DateTime(2020, 4, 1), City="Warszawa", FaktureProductsId=1, FaktureStatusId=2});
+      _factures.Add(new Fakture{Id=2, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
+      _factures.Add(new Fakture{Id=3, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
+      _factures.Add(new Fakture{Id=4, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
+      _factures.Add(new Fakture{Id=5, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
 
 
       var status = GetFactureStatus();
       var products = GetFactureProducts();
 
-      var facture = factures.Join(status,
+      var facture = _factures.Join(status,
         x => x.FaktureStatusId,
         y => y.Id,
         (factures, status) => new FactureToReturnDto
@@ -71,6 +79,11 @@ namespace Data
       ).ToList();
 
       return facture;
+    }
+
+    public void CreateFacture(Fakture fct)
+    {
+      _factures.Add(fct);
     }
   }
 }
