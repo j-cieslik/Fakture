@@ -37,5 +37,13 @@ namespace Controllers
       return Ok(facture);
     }
 
+    //POST api/fakture
+    [HttpPost]
+    public ActionResult<Fakture> CreateFacture(Fakture facture)
+    {
+        _repository.CreateFacture(facture);
+
+        return Ok(facture);
+    }
   }
 }

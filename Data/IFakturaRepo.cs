@@ -7,7 +7,7 @@ namespace Data
 {
     public interface IFakturaRepo
     {
-        FactureToReturnDto GetFactureById(int id);
+        Fakture GetFactureById(int id);
         IEnumerable<FactureToReturnDto> GetFactures();
         IEnumerable<FaktureProducts> GetFactureProducts();
         IEnumerable<FaktureStatus> GetFactureStatus();

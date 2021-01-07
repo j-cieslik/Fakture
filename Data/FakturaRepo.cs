@@ -10,21 +10,21 @@ namespace Data
   public class FakturaRepo : IFakturaRepo
   {
 
-    private List<FaktureStatus> _status;
-    private List<FaktureProducts> _products;
-    private List<Fakture> _factures;
+    private List<FaktureStatus> _status = new List<FaktureStatus>();
+    private List<FaktureProducts> _products = new List<FaktureProducts>();
+    private List<Fakture> _factures = new List<Fakture>();
 
     
     public FakturaRepo()
     {
-      _status = new List<FaktureStatus>();
-      _products = new List<FaktureProducts>();
-      _factures = new List<Fakture>();
+      CreateFactures();
     }
 
-    public FactureToReturnDto GetFactureById(int id)
+    public Fakture GetFactureById(int id)
     {
-      var facture = GetFactures().FirstOrDefault(x => x.Id == id);
+      var facture = _factures.Find(x => x.Id == id);
+
+      Console.WriteLine(id);
 
       return facture;
     }
@@ -53,14 +53,6 @@ namespace Data
 
     public IEnumerable<FactureToReturnDto> GetFactures()
     {
-
-      _factures.Add(new Fakture{Id=1, Code=40, Date=new DateTime(2020, 4, 1), City="Warszawa", FaktureProductsId=1, FaktureStatusId=2});
-      _factures.Add(new Fakture{Id=2, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
-      _factures.Add(new Fakture{Id=3, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
-      _factures.Add(new Fakture{Id=4, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
-      _factures.Add(new Fakture{Id=5, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
-
-
       var status = GetFactureStatus();
       var products = GetFactureProducts();
 
@@ -79,6 +71,14 @@ namespace Data
       ).ToList();
 
       return facture;
+    }
+    public void CreateFactures()
+    {
+      _factures.Add(new Fakture{Id=1, Code=40, Date=new DateTime(2020, 4, 1), City="Warszawa", FaktureProductsId=1, FaktureStatusId=2});
+      _factures.Add(new Fakture{Id=2, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
+      _factures.Add(new Fakture{Id=3, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
+      _factures.Add(new Fakture{Id=4, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
+      _factures.Add(new Fakture{Id=5, Code=90, Date=new DateTime(2020, 12, 6), City="Gdansk", FaktureProductsId=4, FaktureStatusId=1});
     }
 
     public void CreateFacture(Fakture fct)
