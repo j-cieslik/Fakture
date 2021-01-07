@@ -24,8 +24,6 @@ namespace Data
     {
       var facture = _factures.Find(x => x.Id == id);
 
-      Console.WriteLine(id);
-
       return facture;
     }
 
