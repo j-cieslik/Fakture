@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using Dtos;
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace Data
@@ -19,32 +20,53 @@ namespace Data
     }
     public void CreateFacture(Fakture fct)
     {
-      throw new NotImplementedException();
+      if (fct == null)
+      {
+        throw new ArgumentException(nameof(fct));
+      }
+
+      _contex.Fakture.Add(fct);
     }
 
-    public void DeleteFactureById(int id)
+    public void DeleteFacture(Fakture fct)
     {
-      throw new NotImplementedException();
+      if (fct == null)
+      {
+        throw new ArgumentNullException(nameof(fct));
+      }
+
+      _contex.Fakture.Remove(fct);
     }
 
-    public Task<Fakture> GetFactureByIdAsync(int id)
+    public async Task<Fakture> GetFactureByIdAsync(int id)
     {
-      throw new NotImplementedException();
+      return await _contex.Fakture
+          .Include(p => p.FaktureProducts)
+          .Include(p => p.FaktureStatus)
+          .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public Task<List<FaktureProducts>> GetFactureProductsAsync()
+    public async Task<List<FaktureProducts>> GetFactureProductsAsync()
     {
-      throw new NotImplementedException();
+      return await _contex.FaktureProducts.ToListAsync();
     }
 
-    public Task<List<FactureToReturnDto>> GetFacturesAsync()
+    public async Task<List<Fakture>> GetFacturesAsync()
     {
-      throw new NotImplementedException();
+      return await _contex.Fakture
+          .Include(p => p.FaktureProducts)
+          .Include(p => p.FaktureStatus)
+          .ToListAsync();
     }
 
-    public Task<List<FaktureStatus>> GetFactureStatusAsync()
+    public async Task<List<FaktureStatus>> GetFactureStatusAsync()
     {
-      throw new NotImplementedException();
+      return await _contex.FaktureStatus.ToListAsync();
+    }
+
+    public bool SaveChanges()
+    {
+      return (_contex.SaveChanges() >= 0);
     }
 
     public void UpdateFacture(Fakture fct)

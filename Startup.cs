@@ -1,4 +1,6 @@
+using System;
 using API.Data;
+using AutoMapper;
 using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +26,8 @@ namespace Faktura
       services.AddControllers();
       services.AddScoped<IFakturaRepo, FakturaRepo>();
       services.AddDbContext<StoreContext>(x => x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
+
+      services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
