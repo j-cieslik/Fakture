@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FactureViewer.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +32,7 @@ namespace FactureViewer
                 try
                 {
                     var context = services.GetRequiredService<FactureContext>();
+										//context.Database.Migrate();
 										DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)

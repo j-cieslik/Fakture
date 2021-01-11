@@ -16,11 +16,14 @@ namespace FactureViewer.Data
 
 				protected override void OnModelCreating(ModelBuilder modelBuilder)
 				{
-					modelBuilder.Entity<Facture>().ToTable("Facture");
-					modelBuilder.Entity<Product>()
-										.HasOne(a => a.Facture).WithOne(b => b.Product)
-										.HasForeignKey<Facture>(b => b.ProductID);
+					modelBuilder.Entity<Facture>()
+													.HasOne(a => a.Product).WithOne(b => b.Facture)
+													.HasForeignKey<Product>(b => b.Id);
+					// modelBuilder.Entity<Product>()
+					// 					.HasOne(a => a.Facture).WithOne(b => b.Product)
+					// 					.HasForeignKey<Facture>(b => b.Id);
 					modelBuilder.Entity<Status>().ToTable("Status");
+					modelBuilder.Entity<Product>().ToTable("Product");
 				}
     }
 }
