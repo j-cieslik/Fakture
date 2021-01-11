@@ -18,16 +18,24 @@ namespace Data
       _contex = contex;
 
     }
-    public void CreateFacture(Fakture fct)
+    public void CreateFacture(FactureToCreateDto fct)
     {
       if (fct == null)
       {
         throw new ArgumentException(nameof(fct));
       }
 
-      _contex.Fakture.Add(fct);
-    }
+      var facture = new Fakture
+      {
+        Code = fct.Code,
+        Date = fct.Date,
+        City = fct.City,
+        FaktureProductsId = fct.FaktureProductsId,
+        FaktureStatusId = fct.FaktureStatusId,
+      };
 
+      _contex.Add(facture);
+    }
     public void DeleteFacture(Fakture fct)
     {
       if (fct == null)

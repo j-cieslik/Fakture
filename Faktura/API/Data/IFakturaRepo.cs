@@ -11,7 +11,7 @@ namespace Data
         Task<List<Fakture>> GetFacturesAsync();
         Task<List<FaktureProducts>> GetFactureProductsAsync();
         Task<List<FaktureStatus>> GetFactureStatusAsync();
-        void CreateFacture(Fakture fct);
+        void CreateFacture(FactureToCreateDto fct);
         void UpdateFacture(Fakture fct); 
         void DeleteFacture(Fakture fct);
         bool SaveChanges();

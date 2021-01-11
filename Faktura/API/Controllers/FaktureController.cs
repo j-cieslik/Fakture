@@ -63,10 +63,9 @@ namespace Controllers
     [HttpPost]
     public ActionResult<List<FactureToReturnDto>> CreateFacture(FactureToCreateDto factureCreateDto)
     {
-      var factureModel = _mapper.Map<Fakture>(factureCreateDto);
-      _repository.CreateFacture(factureModel);
+      _repository.CreateFacture(factureCreateDto);
 
-      return Ok(factureModel);
+      return Ok(factureCreateDto);
     }
 
     [HttpDelete("{id}")]
