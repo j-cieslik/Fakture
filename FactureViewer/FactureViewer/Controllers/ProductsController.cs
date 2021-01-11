@@ -34,6 +34,8 @@ namespace FactureViewer.Controllers
             }
 
             var product = await _context.Products
+								.Include(s => s.Facture)
+								.ThenInclude(s => s.Status)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {

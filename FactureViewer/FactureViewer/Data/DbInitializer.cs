@@ -50,10 +50,10 @@ namespace FactureViewer.Data
 						{
 							new Facture{Code=304, Date=DateTime.Parse("2005-09-01"), City="Krakow", StatusID=4, ProductID=1},
 							new Facture{Code=520, Date=DateTime.Parse("2015-04-01"), City="Warszawa", StatusID=1, ProductID=2},
-							new Facture{Code=301, Date=DateTime.Parse("2018-09-21"), City="Krakow", StatusID=2, ProductID=4},
-							new Facture{Code=350, Date=DateTime.Parse("2018-06-01"), City="Gdansk", StatusID=4, ProductID=5},
-							new Facture{Code=730, Date=DateTime.Parse("2015-10-01"), City="Katowice", StatusID=1, ProductID=1},
-							new Facture{Code=230, Date=DateTime.Parse("2020-09-01"), City="Poznan", StatusID=3, ProductID=3}
+							new Facture{Code=301, Date=DateTime.Parse("2018-09-21"), City="Krakow", StatusID=2, ProductID=3},
+							new Facture{Code=350, Date=DateTime.Parse("2018-06-01"), City="Gdansk", StatusID=4, ProductID=4},
+							new Facture{Code=730, Date=DateTime.Parse("2015-10-01"), City="Katowice", StatusID=1, ProductID=5},
+							new Facture{Code=230, Date=DateTime.Parse("2020-09-01"), City="Poznan", StatusID=3, ProductID=6}
 						};
 
 						foreach	(Facture f in factures)

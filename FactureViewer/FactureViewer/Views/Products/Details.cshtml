@@ -1,10 +1,10 @@
 ﻿@model FactureViewer.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Facture";
 }
 
-<h1>Details</h1>
+<h1>Facture</h1>
 
 <div>
     <h4>Product</h4>
@@ -34,6 +34,25 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Tax)
         </dd>
+				<dt class = "col-sm-2">
+						@Html.DisplayNameFor(model => model.Facture.City)
+				</dt>
+				<dd class = "col-sm-10">
+						@Html.DisplayFor(model => model.Facture.City)
+				</dd>
+				<dt class = "col-sm-2">
+						@Html.DisplayNameFor(model => model.Facture.Code)
+				</dt>
+				<dd class = "col-sm-10">
+						@Html.DisplayFor(model => model.Facture.Code)
+				</dd>
+				<dt class = "col-sm-2">
+						@Html.DisplayNameFor(model => model.Facture.Status.StatusName)
+				</dt>
+				<dd class = "col-sm-10">
+						@Html.DisplayFor(model => model.Facture.Status.StatusName)
+				</dd>
+
     </dl>
 </div>
 <div>
