@@ -4,6 +4,7 @@ namespace FactureViewer.Models
 {
     public class Product
     {
+				
         public int Id { get; set; }
 				public string WareName { get; set; }
 				public int Count { get; set; }

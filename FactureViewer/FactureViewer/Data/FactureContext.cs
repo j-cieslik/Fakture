@@ -18,8 +18,8 @@ namespace FactureViewer.Data
 				{
 					modelBuilder.Entity<Facture>().ToTable("Facture");
 					modelBuilder.Entity<Product>()
-											.HasOne(a => a.Facture).WithOne(b => b.Product)
-											.HasForeignKey<
+										.HasOne(a => a.Facture).WithOne(b => b.Product)
+										.HasForeignKey<Facture>(b => b.ProductID);
 					modelBuilder.Entity<Status>().ToTable("Status");
 				}
     }

@@ -13,5 +13,6 @@ namespace FactureViewer.Models
 				public int StatusID { get; set; }
 				public Status Status { get; set; }
 				public Product Product { get; set; }
+				public int ProductID {get; set; }
     }
 }
