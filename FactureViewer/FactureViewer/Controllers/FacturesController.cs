@@ -164,6 +164,60 @@ namespace FactureViewer.Controllers
             return View(facture);
         }
 
+				        // GET: Factures/Edit/5
+        public async Task<IActionResult> EditFacture(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var facture = await _context.Factures.FindAsync(id);
+            if (facture == null)
+            {
+                return NotFound();
+            }
+
+						
+
+            ViewData["StatusID"] = new SelectList(_context.Statuses, "Id", "Id", facture.StatusID);
+            return View(facture);
+        }
+
+        // POST: Factures/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFacture(int id, [Bind("Id,Code,Date,City,StatusID")] Facture facture)
+        {
+            if (id != facture.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(facture);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FactureExists(facture.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["StatusID"] = new SelectList(_context.Statuses, "Id", "Id", facture.StatusID);
+            return View(facture);
+        }
+
         // GET: Factures/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
