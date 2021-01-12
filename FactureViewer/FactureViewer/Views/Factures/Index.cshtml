@@ -57,11 +57,12 @@
 									</li>
 									<li>
 										<b>@Html.DisplayNameFor(modelItem => item.Product.Price):</b>
-										@Html.DisplayFor(modelItem => item.Product.Price)
+										@Html.DisplayFor(modelItem => item.Product.Price) PLN
 									</li>
 									<li>
 										<b>@Html.DisplayNameFor(modelItem => item.Product.Tax):</b>
-										@Html.DisplayFor(modelItem => item.Product.Tax)
+										@Convert.ToDouble(item.Product.Tax).ToString("P1")
+										@* @Html.DisplayFor(modelItem => item.Product.Tax) *@
 									</li>
 								</ol>
             </td>

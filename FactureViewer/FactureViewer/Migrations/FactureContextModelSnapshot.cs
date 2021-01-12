@@ -52,8 +52,8 @@ namespace FactureViewer.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("Tax")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Tax")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("WareName")
                         .HasColumnType("TEXT");

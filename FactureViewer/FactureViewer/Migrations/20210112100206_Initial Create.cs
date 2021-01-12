@@ -50,7 +50,7 @@ namespace FactureViewer.Migrations
                     WareName = table.Column<string>(nullable: true),
                     Count = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    Tax = table.Column<int>(nullable: false)
+                    Tax = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

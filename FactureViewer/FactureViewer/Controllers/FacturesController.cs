@@ -46,7 +46,22 @@ namespace FactureViewer.Controllers
                 return NotFound();
             }
 
-            return View(facture);
+						var factureDetails = new FactureViewDetails();
+
+						factureDetails.Id = facture.Id;
+						factureDetails.Code = facture.Code;
+						factureDetails.City = facture.City;
+						factureDetails.Count = facture.Product.Count;
+						factureDetails.Date = facture.Date;
+						factureDetails.Price = facture.Product.Price;
+						factureDetails.StatusName = facture.Status.StatusName;
+						factureDetails.WareName = facture.Product.WareName;
+						factureDetails.Tax = facture.Product.Tax.ToString("P1");
+
+						factureDetails.PriceNetto = facture.Product.Count * facture.Product.Price;
+						factureDetails.PriceBrutto = factureDetails.PriceNetto + (facture.Product.Count * facture.Product.Price * facture.Product.Tax);
+
+            return View(factureDetails);
         }
 
         // GET: Factures/Create

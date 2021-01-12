@@ -11,7 +11,7 @@ namespace FactureViewer.Models
 				public string WareName { get; set; }
 				public int Count { get; set; }
 				public double Price { get; set; }
-				public int Tax { get; set; }
+				public double Tax { get; set; }
 				public Facture Facture { get; set; }
     }
 }

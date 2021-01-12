@@ -50,12 +50,12 @@ namespace FactureViewer.Data
 
 						var products = new Product[]
 						{
-							new Product{Id=factures[0].Id ,WareName="Narty", Count=2, Price=500, Tax=15},
-							new Product{Id=factures[1].Id ,WareName="Deska", Count=5, Price=100, Tax=17},
-							new Product{Id=factures[2].Id ,WareName="Czapka", Count=7, Price=100, Tax=19},
-							new Product{Id=factures[3].Id ,WareName="Kurtka", Count=1, Price=300, Tax=20},
-							new Product{Id=factures[4].Id ,WareName="Spodnie", Count=2, Price=200, Tax=13},
-							new Product{Id=factures[5].Id ,WareName="Lyzwy", Count=5, Price=10, Tax=11}
+							new Product{Id=factures[0].Id ,WareName="Narty", Count=2, Price=500, Tax=0.15},
+							new Product{Id=factures[1].Id ,WareName="Deska", Count=5, Price=100, Tax=0.17},
+							new Product{Id=factures[2].Id ,WareName="Czapka", Count=7, Price=100, Tax=0.19},
+							new Product{Id=factures[3].Id ,WareName="Kurtka", Count=1, Price=300, Tax=0.20},
+							new Product{Id=factures[4].Id ,WareName="Spodnie", Count=2, Price=200, Tax=0.13},
+							new Product{Id=factures[5].Id ,WareName="Lyzwy", Count=5, Price=10, Tax=0.11}
 						};
 
 						foreach (Product s in products)
