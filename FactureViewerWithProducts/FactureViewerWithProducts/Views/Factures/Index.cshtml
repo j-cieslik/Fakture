@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
+						<th style="text-align: center;">
+                Products
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -40,8 +43,27 @@
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status.Id)
+                @Html.DisplayFor(modelItem => item.Status.StatusName)
             </td>
+						<td>
+							<ol>	
+									@foreach ( var cos in item.FactureProducts)
+									{
+										<li>
+											<ul style="padding-inline-start: 10px">
+													@Html.DisplayFor(modelItem => cos.Product.WareName) - 
+													@Html.DisplayFor(modelItem => cos.Product.Price) PLN
+													<br>
+													@* <li>@Html.DisplayFor(modelItem => cos.Product.WareName)</li> *@
+													@* <li>@Html.DisplayFor(modelItem => cos.Product.Price)</li> *@
+											</ul>
+										</li>
+									}	
+							</ol>
+
+							<span style="margin-top: 5px; font-weight: bold;">Razem: </span>
+						</td>
+						
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

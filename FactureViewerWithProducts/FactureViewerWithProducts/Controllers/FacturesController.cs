@@ -22,7 +22,11 @@ namespace FactureViewerWithProducts.Controllers
         // GET: Factures
         public async Task<IActionResult> Index()
         {
-            var factureContext = _context.Factures.Include(f => f.Status);
+            var factureContext = _context.Factures
+									.Include(f => f.Status)
+									.Include(f => f.FactureProducts)
+									.ThenInclude(f => f.Product);
+
             return View(await factureContext.ToListAsync());
         }
 
