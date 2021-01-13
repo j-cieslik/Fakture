@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Facture Viewer</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -24,7 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
-						<th style="text-align: center;">
+						<th style="">
                 Products
             </th>
             <th></th>
@@ -46,28 +46,30 @@
                 @Html.DisplayFor(modelItem => item.Status.StatusName)
             </td>
 						<td>
-							<ol>	
-									@foreach ( var cos in item.FactureProducts)
+							<ol style="padding-left: 0;">	
+									@foreach ( var s in item.FactureProducts)
 									{
 										<li>
 											<ul style="padding-inline-start: 10px">
-													@Html.DisplayFor(modelItem => cos.Product.WareName) - 
-													@Html.DisplayFor(modelItem => cos.Product.Price) PLN
+													@Html.DisplayFor(modelItem => s.Product.WareName) - 
+													@Html.DisplayFor(modelItem => s.Product.Price) PLN
 													<br>
-													@* <li>@Html.DisplayFor(modelItem => cos.Product.WareName)</li> *@
-													@* <li>@Html.DisplayFor(modelItem => cos.Product.Price)</li> *@
+													@* <li>@Html.DisplayFor(modelItem => s.Product.WareName)</li> *@
+													@* <li>@Html.DisplayFor(modelItem => s.Product.Price)</li> *@
 											</ul>
 										</li>
 									}	
 							</ol>
 
-							<span style="margin-top: 5px; font-weight: bold;">Razem: </span>
+							<span style="margin-top: 5px; font-weight: bold;">Razem(brutto): </span>
+							1000 PLN
+							
 						</td>
 						
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+								<a asp-action="Details" asp-route-id="@item.Id">Wiecej...</a>
             </td>
         </tr>
 }

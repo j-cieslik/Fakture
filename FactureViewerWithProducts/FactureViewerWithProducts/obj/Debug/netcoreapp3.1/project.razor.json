@@ -14397,6 +14397,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\FactureProducts\\Index.cshtml",
+      "TargetPath": "Views\\FactureProducts\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\Factures\\Details.cshtml",
       "TargetPath": "Views\\Factures\\Details.cshtml",
       "FileKind": "mvc"
@@ -14414,6 +14419,11 @@
     {
       "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\Products\\Edit.cshtml",
       "TargetPath": "Views\\Products\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\FactureProducts\\Create.cshtml",
+      "TargetPath": "Views\\FactureProducts\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14462,6 +14472,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\FactureProducts\\Edit.cshtml",
+      "TargetPath": "Views\\FactureProducts\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\FactureProducts\\Details.cshtml",
+      "TargetPath": "Views\\FactureProducts\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
@@ -14474,6 +14494,11 @@
     {
       "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Kuba\\Documents\\dokumenty\\programing\\web\\Zadanie\\FactureViewerWithProducts\\FactureViewerWithProducts\\Views\\FactureProducts\\Delete.cshtml",
+      "TargetPath": "Views\\FactureProducts\\Delete.cshtml",
       "FileKind": "mvc"
     }
   ],

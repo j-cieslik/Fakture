@@ -5,6 +5,7 @@ namespace FactureViewerWithProducts.Models
 {
     public class FactureProducts
     {
+				public int Id { get; set; }
         public int FactureId { get; set; }
 				public int ProductId { get; set; }
 

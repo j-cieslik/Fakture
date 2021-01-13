@@ -7,31 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FactureViewerWithProducts.Data;
 using FactureViewerWithProducts.Models;
-using FactureViewerWithProducts.Dtos;
 
 namespace FactureViewerWithProducts.Controllers
 {
-    public class FacturesController : Controller
+    public class FactureProductsController : Controller
     {
         private readonly FactureContext _context;
 
-        public FacturesController(FactureContext context)
+        public FactureProductsController(FactureContext context)
         {
             _context = context;
         }
 
-        // GET: Factures
+        // GET: FactureProducts
         public async Task<IActionResult> Index()
         {
-            var factureContext = _context.Factures
-									.Include(f => f.Status)
-									.Include(f => f.FactureProducts)
-									.ThenInclude(f => f.Product);
-
+            var factureContext = _context.FactureProducts.Include(f => f.Facture).Include(f => f.Product);
             return View(await factureContext.ToListAsync());
         }
 
-        // GET: Factures/Details/5
+        // GET: FactureProducts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,59 +34,45 @@ namespace FactureViewerWithProducts.Controllers
                 return NotFound();
             }
 
-            var facture = await _context.Factures
-                .Include(f => f.Status)
-								.Include(f => f.FactureProducts)
-								.ThenInclude(f => f.Product)
+            var factureProducts = await _context.FactureProducts
+                .Include(f => f.Facture)
+                .Include(f => f.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (facture == null)
+            if (factureProducts == null)
             {
                 return NotFound();
             }
 
-						var factureDetails = new FactureDetailsDto();
-
-						factureDetails.Id = facture.Id;
-						factureDetails.Code = facture.Code;
-						factureDetails.Date = facture.Date;
-						factureDetails.City = facture.City;
-						factureDetails.StatusName = facture.Status.StatusName;
-						
-						factureDetails.Product = facture.FactureProducts.Select(f => f.Product).ToList();
-
-						factureDetails.PriceBrutto = factureDetails.Product.Select(f => f.Count * f.Price + f.Count * f.Price * f.Tax).Sum();
-						factureDetails.PriceNetto = factureDetails.Product.Select(f => f.Count * f.Price).Sum();
-
-            return View(factureDetails);
+            return View(factureProducts);
         }
 
-        // GET: Factures/Create
+        // GET: FactureProducts/Create
         public IActionResult Create()
         {
-            ViewData["StatusID"] = new SelectList(_context.Statuses, "Id", "StatusName");
+            ViewData["FactureId"] = new SelectList(_context.Factures, "Id", "Id");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
             return View();
         }
 
-        // POST: Factures/Create
+        // POST: FactureProducts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Code,Date,City,StatusID")] Facture facture)
+        public async Task<IActionResult> Create([Bind("Id,FactureId,ProductId")] FactureProducts factureProducts)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(facture);
+                _context.Add(factureProducts);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StatusID"] = new SelectList(_context.Statuses, "Id", "StatusName", facture.StatusID);
-            return View(facture);
+            ViewData["FactureId"] = new SelectList(_context.Factures, "Id", "Id", factureProducts.FactureId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", factureProducts.ProductId);
+            return View(factureProducts);
         }
 
-
-        // GET: Factures/Edit/5
+        // GET: FactureProducts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,23 +80,24 @@ namespace FactureViewerWithProducts.Controllers
                 return NotFound();
             }
 
-            var facture = await _context.Factures.FindAsync(id);
-            if (facture == null)
+            var factureProducts = await _context.FactureProducts.FindAsync(id);
+            if (factureProducts == null)
             {
                 return NotFound();
             }
-            ViewData["StatusID"] = new SelectList(_context.Statuses, "Id", "Id", facture.StatusID);
-            return View(facture);
+            ViewData["FactureId"] = new SelectList(_context.Factures, "Id", "Id", factureProducts.FactureId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", factureProducts.ProductId);
+            return View(factureProducts);
         }
 
-        // POST: Factures/Edit/5
+        // POST: FactureProducts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Code,Date,City,StatusID")] Facture facture)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FactureId,ProductId")] FactureProducts factureProducts)
         {
-            if (id != facture.Id)
+            if (id != factureProducts.Id)
             {
                 return NotFound();
             }
@@ -124,12 +106,12 @@ namespace FactureViewerWithProducts.Controllers
             {
                 try
                 {
-                    _context.Update(facture);
+                    _context.Update(factureProducts);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FactureExists(facture.Id))
+                    if (!FactureProductsExists(factureProducts.Id))
                     {
                         return NotFound();
                     }
@@ -140,11 +122,12 @@ namespace FactureViewerWithProducts.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StatusID"] = new SelectList(_context.Statuses, "Id", "Id", facture.StatusID);
-            return View(facture);
+            ViewData["FactureId"] = new SelectList(_context.Factures, "Id", "Id", factureProducts.FactureId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", factureProducts.ProductId);
+            return View(factureProducts);
         }
 
-        // GET: Factures/Delete/5
+        // GET: FactureProducts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -152,31 +135,32 @@ namespace FactureViewerWithProducts.Controllers
                 return NotFound();
             }
 
-            var facture = await _context.Factures
-                .Include(f => f.Status)
+            var factureProducts = await _context.FactureProducts
+                .Include(f => f.Facture)
+                .Include(f => f.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (facture == null)
+            if (factureProducts == null)
             {
                 return NotFound();
             }
 
-            return View(facture);
+            return View(factureProducts);
         }
 
-        // POST: Factures/Delete/5
+        // POST: FactureProducts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var facture = await _context.Factures.FindAsync(id);
-            _context.Factures.Remove(facture);
+            var factureProducts = await _context.FactureProducts.FindAsync(id);
+            _context.FactureProducts.Remove(factureProducts);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FactureExists(int id)
+        private bool FactureProductsExists(int id)
         {
-            return _context.Factures.Any(e => e.Id == id);
+            return _context.FactureProducts.Any(e => e.Id == id);
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FactureViewerWithProducts.Migrations
 {
     [DbContext(typeof(FactureContext))]
-    [Migration("20210112121555_Initial Create")]
+    [Migration("20210112222042_Initial Create")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,13 +45,19 @@ namespace FactureViewerWithProducts.Migrations
 
             modelBuilder.Entity("FactureViewerWithProducts.Models.FactureProducts", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("FactureId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("FactureId", "ProductId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("FactureId");
 
                     b.HasIndex("ProductId");
 

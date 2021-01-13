@@ -62,12 +62,14 @@ namespace FactureViewerWithProducts.Migrations
                 name: "FactureProducts",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     FactureId = table.Column<int>(nullable: false),
                     ProductId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FactureProducts", x => new { x.FactureId, x.ProductId });
+                    table.PrimaryKey("PK_FactureProducts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_FactureProducts_Factures_FactureId",
                         column: x => x.FactureId,
@@ -81,6 +83,11 @@ namespace FactureViewerWithProducts.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FactureProducts_FactureId",
+                table: "FactureProducts",
+                column: "FactureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FactureProducts_ProductId",

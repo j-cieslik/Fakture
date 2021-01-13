@@ -18,7 +18,7 @@ namespace FactureViewerWithProducts.Data
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<FactureProducts>()
-					.HasKey(bc => new { bc.FactureId, bc.ProductId });
+					.HasKey(bc => new { bc.Id });
 			modelBuilder.Entity<FactureProducts>()
 					.HasOne(bc => bc.Facture)
 					.WithMany(b => b.FactureProducts)

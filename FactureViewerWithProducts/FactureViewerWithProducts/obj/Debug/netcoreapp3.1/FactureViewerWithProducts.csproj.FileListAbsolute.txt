@@ -173,3 +173,8 @@ C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProduc
 C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProducts\FactureViewerWithProducts\obj\Debug\netcoreapp3.1\Razor\Views\Products\Details.cshtml.g.cs
 C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProducts\FactureViewerWithProducts\obj\Debug\netcoreapp3.1\Razor\Views\Products\Edit.cshtml.g.cs
 C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProducts\FactureViewerWithProducts\obj\Debug\netcoreapp3.1\Razor\Views\Products\Index.cshtml.g.cs
+C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProducts\FactureViewerWithProducts\obj\Debug\netcoreapp3.1\Razor\Views\FactureProducts\Create.cshtml.g.cs
+C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProducts\FactureViewerWithProducts\obj\Debug\netcoreapp3.1\Razor\Views\FactureProducts\Delete.cshtml.g.cs
+C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProducts\FactureViewerWithProducts\obj\Debug\netcoreapp3.1\Razor\Views\FactureProducts\Details.cshtml.g.cs
+C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProducts\FactureViewerWithProducts\obj\Debug\netcoreapp3.1\Razor\Views\FactureProducts\Edit.cshtml.g.cs
+C:\Users\Kuba\Documents\dokumenty\programing\web\Zadanie\FactureViewerWithProducts\FactureViewerWithProducts\obj\Debug\netcoreapp3.1\Razor\Views\FactureProducts\Index.cshtml.g.cs
