@@ -21,14 +21,99 @@ namespace FactureViewerWithProducts.Controllers
         }
 
         // GET: Factures
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] FactureFilterParams factureParams)
         {
-            var factureContext = _context.Factures
-									.Include(f => f.Status)
-									.Include(f => f.FactureProducts)
-									.ThenInclude(f => f.Product);
 
-            return View(await factureContext.ToListAsync());
+						ViewData["CodeSortParam"] = string
+									.IsNullOrEmpty(factureParams.sortOrder) 
+									? "Code_desc" : "";
+						ViewData["DateSortParam"] = factureParams.sortOrder == "Date" 
+									? "Date_desc" : "Date";
+						ViewData["StatusSortParam"] = factureParams.sortOrder == "Status" 
+									? "Status_desc" : "Status";
+						ViewData["CitySortParam"] = factureParams.sortOrder == "City" 
+									? "City_desc" : "City";
+
+            var factureContext = await _context.Factures
+										.Include(c => c.Status)
+										.Select(c => c).ToListAsync();
+
+						if(!string.IsNullOrEmpty(factureParams.Code))
+						{
+
+							factureContext = factureContext.Where(c => 
+									c.Code.ToString()
+												.Contains(factureParams.Code))
+												.ToList();
+						}
+
+						if(!string.IsNullOrEmpty(factureParams.Date))
+						{
+							factureContext = factureContext.Where(c => 
+									c.Date.ToString()
+												.Contains(factureParams.Date))
+												.ToList();
+						}
+
+						if(!string.IsNullOrEmpty(factureParams.Status))
+						{
+							factureContext = factureContext.Where(c => 
+									c.Status.StatusName
+													.ToLower()
+													.Contains(factureParams.Status
+													.ToLower()))
+													.ToList();
+						}
+
+						if(!string.IsNullOrEmpty(factureParams.City))
+						{
+							factureContext = factureContext.Where(c => 
+									c.City.ToLower()
+												.Contains(factureParams.City
+												.ToLower()))
+												.ToList();
+						}
+
+						switch (factureParams.sortOrder)
+						{
+							case "Code_desc":
+									factureContext = factureContext
+												.OrderByDescending(c => c.Code)
+												.ToList();
+									break;
+							case "Date":
+									factureContext = factureContext
+												.OrderBy(c => c.Date)
+												.ToList();
+									break;
+							case "Date_desc":
+									factureContext = factureContext
+												.OrderByDescending(c => c.Date)
+												.ToList();
+									break;
+							case "Status":
+									factureContext = factureContext
+												.OrderBy(c => c.Status.StatusName)
+												.ToList();
+									break;
+							case "Status_desc":
+									factureContext = factureContext
+												.OrderByDescending(c => c.Status.StatusName)
+												.ToList();
+									break;
+							case "City":
+									factureContext = factureContext
+												.OrderBy(c => c.City)
+												.ToList();
+									break;
+							case "City_desc":
+									factureContext = factureContext
+												.OrderByDescending(c => c.City)
+												.ToList();
+									break;
+						}
+
+            return View(factureContext);
         }
 
         // GET: Factures/Details/5
@@ -58,10 +143,16 @@ namespace FactureViewerWithProducts.Controllers
 						factureDetails.City = facture.City;
 						factureDetails.StatusName = facture.Status.StatusName;
 						
-						factureDetails.Product = facture.FactureProducts.Select(f => f.Product).ToList();
+						factureDetails.Product = facture.FactureProducts
+													.Select(f => f.Product)
+													.ToList();
 
-						factureDetails.PriceBrutto = factureDetails.Product.Select(f => f.Count * f.Price + f.Count * f.Price * f.Tax).Sum();
-						factureDetails.PriceNetto = factureDetails.Product.Select(f => f.Count * f.Price).Sum();
+						factureDetails.PriceBrutto = factureDetails.Product
+													.Select(f => f.Count * f.Price + f.Count * f.Price * f.Tax)
+													.Sum();
+						factureDetails.PriceNetto = factureDetails.Product
+													.Select(f => f.Count * f.Price)
+													.Sum();
 
             return View(factureDetails);
         }

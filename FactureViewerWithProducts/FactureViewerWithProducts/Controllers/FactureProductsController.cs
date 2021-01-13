@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FactureViewerWithProducts.Data;
 using FactureViewerWithProducts.Models;
+using Dtos;
 
 namespace FactureViewerWithProducts.Controllers
 {
@@ -62,17 +63,20 @@ namespace FactureViewerWithProducts.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FactureId,ProductId")] FactureProducts factureProducts)
+        public async Task<IActionResult> Create(FactureProductsCreateDto factureProductsCreate)
         {
             if (ModelState.IsValid)
             {
+								var factureProducts = new FactureProducts();
+								factureProducts.FactureId = factureProductsCreate.FactureId;
+								factureProducts.ProductId = factureProductsCreate.ProductId;
+
                 _context.Add(factureProducts);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Factures", new {@id = factureProductsCreate.FactureId});
             }
-            ViewData["FactureId"] = new SelectList(_context.Factures, "Id", "Id", factureProducts.FactureId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", factureProducts.ProductId);
-            return View(factureProducts);
+
+            return RedirectToAction("Details", "Factures", new {@id = factureProductsCreate.FactureId});
         }
 
         // GET: FactureProducts/Edit/5
@@ -158,7 +162,7 @@ namespace FactureViewerWithProducts.Controllers
             var factureProducts = await _context.FactureProducts.FindAsync(id);
             _context.FactureProducts.Remove(factureProducts);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Factures", new {@id = factureProducts.FactureId});
         }
 
         private bool FactureProductsExists(int id)
