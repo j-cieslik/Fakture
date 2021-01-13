@@ -47,11 +47,14 @@ namespace FactureViewerWithProducts.Controllers
         }
 
         // GET: FactureProducts/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewData["FactureId"] = new SelectList(_context.Factures, "Id", "Id");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
-            return View();
+
+						var facturePr = new FactureProducts();
+						facturePr.FactureId = id;
+
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "WareName");
+            return View(facturePr);
         }
 
         // POST: FactureProducts/Create
